@@ -18,11 +18,16 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.post('/slack-webhook', async (req, res) => {
-  const { type, challenge } = req.body;
+  const { type, challenge, event } = req.body;
 
   // Slack URL Verification
   if (type === 'url_verification') {
     return res.json({ challenge });
+  }
+
+  // Check if the event is a message in the specified channel
+  if (event && event.type === 'message' && event.channel === 'C05A5M5MDD0') {
+    console.log('Forwarding message from channel C05A5M5MDD0 to Zapier:', event);
   }
 
   // Forward the event to Zapier
