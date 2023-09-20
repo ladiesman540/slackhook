@@ -15,7 +15,8 @@ app.post('/slack-webhook', async (req, res) => {
   }
 
   // Forward the event to Zapier
-  try {
+   try {
+    console.log('Forwarding to Zapier:', req.body);  // Log before forwarding
     await axios.post('https://hooks.zapier.com/hooks/catch/14538814/3rjfh3t/', req.body);
   } catch (error) {
     console.error('Error forwarding to Zapier:', error);
